@@ -271,24 +271,6 @@ class brother extends eqLogic {
     }
     return parent::toHtml($_version);
   }
-    
-  public static function dependancy_install() {
-		log::remove(__CLASS__ . '_update');
-		return array('script' => dirname(__FILE__) . '/../../resources/install_apt.sh ' . jeedom::getTmpFolder(__CLASS__) . '/dependency', 'log' => log::getPathToLog(__CLASS__ . '_update'));
-	}
-    
-  public static function dependancy_info() {
-    $return = array();
-    $return['log'] = 'noip_update';
-    $return['progress_file'] = '/tmp/jeedom/noip/dependency';
-    $cmd = system::getCmdSudo() . '/bin/bash ' . dirname(__FILE__) . '/../../resources/install_check.sh';
-    if (exec($cmd) == "ok") {
-        $return['state'] = 'ok';
-    } else {
-        $return['state'] = 'nok';
-    }
-    return $return;
-	}
 
 }
 
