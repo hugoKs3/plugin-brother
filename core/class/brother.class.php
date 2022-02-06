@@ -284,6 +284,23 @@ class brother extends eqLogic {
     } else {
         $replace['#yellow_level#'] = 0;
     }
+
+    $modelCmd = $this->getCmd(null, 'model');
+    if ($modelCmd->getIsVisible() == 1) {
+        $replace['#brother_model#'] = $modelCmd->execCmd();
+    }
+    $firmwareCmd = $this->getCmd(null, 'firmware');
+    if ($firmwareCmd->getIsVisible() == 1) {
+        $replace['#brother_firmware#'] = $firmwareCmd->execCmd();
+    }
+    $statusCmd = $this->getCmd(null, 'status');
+    if ($statusCmd->getIsVisible() == 1) {
+        $replace['#brother_status#'] = $statusCmd->execCmd();
+    }
+    $pagesCmd = $this->getCmd(null, 'counter');
+    if ($pagesCmd->getIsVisible() == 1) {
+        $replace['#brother_counter#'] = $pagesCmd->execCmd();
+    }
     
     $html = template_replace($replace, getTemplate('core', $version, 'brother.template', __CLASS__));
     cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
