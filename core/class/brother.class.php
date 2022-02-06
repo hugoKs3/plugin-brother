@@ -251,8 +251,8 @@ class brother extends eqLogic {
     $version = jeedom::versionAlias($_version);
    
     $refreshCmd = $this->getCmd(null, 'refresh');
-    if ($resetCmd->getIsVisible() == 1) {
-        $replace['#refresh_id#'] = $resetCmd->getId();
+    if ($refreshCmd->getIsVisible() == 1) {
+        $replace['#refresh_id#'] = $refreshCmd->getId();
     } else {
         $replace['#refresh_id#'] = '';
     }
