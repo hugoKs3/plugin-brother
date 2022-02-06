@@ -20,9 +20,7 @@
     max-width: 500px;
 }
 
-.highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
+.highcharts-title {
     color: rgb(180, 179, 179);
 }
 
