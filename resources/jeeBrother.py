@@ -1,4 +1,9 @@
 import asyncio
+from sys import argv
+
+from brother import Brother, SnmpError, UnsupportedModel
+
+import asyncio
 import logging
 from sys import argv
 
@@ -40,8 +45,6 @@ async def main():
 
     brother.shutdown()
 
-    print(f"Model: {brother.model}")
-    print(f"Firmware: {brother.firmware}")
     if data:
         myfile = open(mypath + "/data/output.json", "w")
         json.dump(data, myfile, cls=DateTimeEncoder)

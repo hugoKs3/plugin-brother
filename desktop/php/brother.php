@@ -104,7 +104,7 @@ foreach ($eqLogics as $eqLogic) {
 			 <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="brotherAddress" placeholder="Adresse IP / Nom d'hôte"/>
 	 </div>
  <div class="form-group">
-	 <label class="col-sm-6 control-label help" data-help="{{Sélectionnez le template de widget à utiliser}}">{{Type de l'imprimante}}</label>
+	 <label class="col-sm-6 control-label help">{{Type de l'imprimante}}</label>
 	 <div class="col-sm-6">
          
         <select id="sel_object_template" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="brotherType">

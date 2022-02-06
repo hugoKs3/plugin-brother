@@ -199,7 +199,7 @@ class brother extends eqLogic {
     $host = $this->getConfiguration('brotherAddress');
     $type = $this->getConfiguration('brotherType');
 
-    $cmd = 'sudo python3 ' . $brother_path . '/resources/brother.py ' . $host . ' ' . $type . ' ' . $brother_path . ' ' . log::convertLogLevel(log::getLogLevel('brother'));
+    $cmd = 'sudo python3 ' . $brother_path . '/resources/jeeBrother.py ' . $host . ' ' . $type . ' ' . $brother_path . ' ' . log::convertLogLevel(log::getLogLevel('brother'));
     log::add(__CLASS__, 'info', 'Lancement script No-Ip : ' . $cmd);
 
     exec($cmd . ' >> ' . log::getPathToLog('brother') . ' 2>&1'); 
@@ -232,13 +232,21 @@ class brother extends eqLogic {
     if ($this->getIsEnable()) {
       $this->checkAndUpdateCmd('model', $obj->model);
       $this->checkAndUpdateCmd('serial', $obj->serial);
-      $this->checkAndUpdateCmd('firmware', $domain->firmware);
-      $this->checkAndUpdateCmd('status', $domain->status);
-      $this->checkAndUpdateCmd('black', $domain->black);
-      $this->checkAndUpdateCmd('cyan', $domain->cyan);
-      $this->checkAndUpdateCmd('magenta', $domain->magenta);
-      $this->checkAndUpdateCmd('yellow', $domain->yellow);
-      $this->checkAndUpdateCmd('counter', $domain->page_counter);
+      $this->checkAndUpdateCmd('firmware', $obj->firmware);
+      $this->checkAndUpdateCmd('status', $obj->status);
+
+      $type = $this->getConfiguration('brotherType');
+      $printertype = "ink";
+      if ($type == "laser") {
+        $printertype = "toner";
+      }
+      $colors = ["black", "cyan", "magenta", "yellow"];
+      foreach ($colors as $color) {
+        $index = $color . '_' . $printertype . '_remaining';
+        $this->checkAndUpdateCmd($color, $obj->$index);
+      }
+
+      $this->checkAndUpdateCmd('counter', $obj->page_counter);
     }
   }
     
