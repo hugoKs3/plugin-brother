@@ -26,7 +26,31 @@ class brother extends eqLogic {
 
 	/* * ***********************Methode static*************************** */
 
-  public static function cron5()
+  public static function cron5() {
+    proceed();
+  }
+
+  public static function cron10() {
+    proceed();
+  }
+
+  public static function cron15() {
+    proceed();
+  }
+
+  public static function cron30() {
+    proceed();
+  }
+
+  public static function cronHourly() {
+    proceed();
+  }
+
+  public static function cronDaily() {
+    proceed();
+  }
+
+  public static function proceed()
   {
     $eqLogics = self::byType(__CLASS__, true);
 
@@ -35,15 +59,6 @@ class brother extends eqLogic {
         $eqLogic->refreshInfo();
     }
   }
-
-
-	public function preUpdate()
-	{
-	}
-
-	public function preSave()
-	{
-	}
 
 	public function postSave() {
     $cmd = $this->getCmd(null, 'model');
