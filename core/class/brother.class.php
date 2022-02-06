@@ -244,7 +244,49 @@ class brother extends eqLogic {
     if ($this->getConfiguration('widgetTemplate') != 1) {
     	return parent::toHtml($_version);
     }
-    return parent::toHtml($_version);
+    $replace = $this->preToHtml($_version);
+    if (!is_array($replace)) {
+        return $replace;
+    }
+    $version = jeedom::versionAlias($_version);
+   
+    $refreshCmd = $this->getCmd(null, 'refresh');
+    if ($resetCmd->getIsVisible() == 1) {
+        $replace['#refresh_id#'] = $resetCmd->getId();
+    } else {
+        $replace['#refresh_id#'] = '';
+    }
+    
+    $blackCmd = $this->getCmd(null, 'black');
+    if ($blackCmd->getIsVisible() == 1) {
+        $replace['#black_level#'] = $blackCmd->execCmd();
+    } else {
+        $replace['#black_level#'] = 0;
+    }
+
+    $cyanCmd = $this->getCmd(null, 'cyan');
+    if ($cyanCmd->getIsVisible() == 1) {
+        $replace['#cyan_level#'] = $cyanCmd->execCmd();
+    } else {
+        $replace['#cyan_level#'] = 0;
+    }
+
+    $magentaCmd = $this->getCmd(null, 'magenta');
+    if ($magentaCmd->getIsVisible() == 1) {
+        $replace['#magenta_level#'] = $magentaCmd->execCmd();
+    } else {
+        $replace['#magenta_level#'] = 0;
+    }
+
+    $yellowCmd = $this->getCmd(null, 'yellow');
+    if ($yellowCmd->getIsVisible() == 1) {
+        $replace['#yellow_level#'] = $yellowCmd->execCmd();
+    } else {
+        $replace['#yellow_level#'] = 0;
+    }
+    
+    $html = template_replace($replace, getTemplate('core', $version, 'brother.template', __CLASS__));
+    cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
   }
 
 }
