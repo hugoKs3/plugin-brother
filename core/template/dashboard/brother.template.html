@@ -10,8 +10,8 @@
 		<a href="#eqLink#" class="reportModeHidden">#name_display# <span class="object_name">#object_name#</span></a>
 	</center>
     <div>
-        <figure class="highcharts-figure">
-            <div id="gauge-container"></div>                
+        <figure>
+            <div id="ink-gauge-container"></div>                
         </figure>
     </div>
     <script>
@@ -23,7 +23,7 @@
 			$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove();
 		}
 
-        Highcharts.chart('container', {
+        Highcharts.chart('ink-gauge-container', {
             credits: {enabled: false},
             exporting : {enabled: false},
             title: {text: null},
