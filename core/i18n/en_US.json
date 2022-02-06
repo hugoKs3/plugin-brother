@@ -1,0 +1,46 @@
+{
+    "plugins\/brother\/plugin_info\/configuration.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access"
+    },
+    "plugins\/brother\/desktop\/php\/brother.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access",
+        "Gestion": "Management",
+        "Ajouter": "Add",
+        "Configuration": "Configuration",
+        "Mes Imprimantes": "My Printers",
+        "Rechercher": "Search",
+        "Configuration avancée": "Advanced configuration",
+        "Dupliquer": "Duplicate",
+        "Sauvegarder": "Save",
+        "Supprimer": "Delete",
+        "Equipement": "Equipment",
+        "Commandes": "Commands",
+        "Nom de l'imprimante": "Name of the printer",
+        "Objet parent": "Parent object",
+        "Aucun": "None",
+        "Catégorie": "Category",
+        "Options": "Options",
+        "Activer": "Activate",
+        "Visible": "Visible",
+        "Adresse IP / Nom d'hôte": "IP address / Hostname",
+        "Type de l'imprimante": "Printer's type",
+        "Jet d'encre": "Inkjet",
+        "Laser": "Laser",
+        "Template de widget": "Widget template",
+        "Id": "ID",
+        "Nom": "Name",
+        "Type": "Type",
+        "Action": "Action"
+    },
+    "plugins\/brother\/desktop\/js\/brother.js": {
+        "Min": "Min",
+        "Max": "Max",
+        "Unité": "Unit",
+        "Afficher": "Show",
+        "Historiser": "Historize",
+        "Tester": "Test"
+    },
+    "plugins\/brother\/core\/class\/brother.class.php": {
+
+    }
+}
