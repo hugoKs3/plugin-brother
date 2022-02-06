@@ -179,8 +179,8 @@ class brother extends eqLogic {
   public function preInsert() {
     $this->setIsVisible(1);
     $this->setConfiguration('brotherWidget', 1);
-    $this->setDisplay('height','150px');
-    $this->setDisplay('width', '340px');
+    $this->setDisplay('height','332px');
+    $this->setDisplay('width', '392px');
     $this->setIsEnable(1);
   }        
     
