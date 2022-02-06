@@ -241,7 +241,7 @@ class brother extends eqLogic {
   }
     
   public function toHtml($_version = 'dashboard') {
-    if ($this->getConfiguration('widgetTemplate') != 1) {
+    if ($this->getConfiguration('brotherWidget') != 1) {
     	return parent::toHtml($_version);
     }
     $replace = $this->preToHtml($_version);
