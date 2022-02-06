@@ -15,10 +15,6 @@
             <figure>
                 <div id="ink-gauge-container"></div>                
             </figure>
-            <br/>
-            <span class="brother_status"></span>Status: <b>#brother_status#</b></span>
-            <br/>
-            <span class="brother_counter"></span>Pages: <b>#brother_counter#</b></span>
         </center>
     </div>
     <script>
@@ -30,23 +26,10 @@
 			$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove();
 		}
 
-        if ('#brother_model#' == '') {
-          $('.eqLogic[data-eqLogic_uid=#uid#] .brother_model').remove();
-        }
-        if ('#brother_firmware#' == '') {
-          $('.eqLogic[data-eqLogic_uid=#uid#] .brother_firmware').remove();
-        }
-        if ('#brother_status#' == '') {
-          $('.eqLogic[data-eqLogic_uid=#uid#] .brother_status').remove();
-        }
-        if ('#brother_counter#' == '') {
-          $('.eqLogic[data-eqLogic_uid=#uid#] .brother_counter').remove();
-        }
-
         Highcharts.chart('ink-gauge-container', {
             credits: {enabled: false},
             exporting : {enabled: false},
-            title: {text: null},
+            title: {text: "#brother_status#, #brother_counter# pages"},
             tooltip: {enabled: false},
 
             chart: {

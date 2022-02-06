@@ -285,14 +285,6 @@ class brother extends eqLogic {
         $replace['#yellow_level#'] = 0;
     }
 
-    $modelCmd = $this->getCmd(null, 'model');
-    if ($modelCmd->getIsVisible() == 1) {
-        $replace['#brother_model#'] = $modelCmd->execCmd();
-    }
-    $firmwareCmd = $this->getCmd(null, 'firmware');
-    if ($firmwareCmd->getIsVisible() == 1) {
-        $replace['#brother_firmware#'] = $firmwareCmd->execCmd();
-    }
     $statusCmd = $this->getCmd(null, 'status');
     if ($statusCmd->getIsVisible() == 1) {
         $replace['#brother_status#'] = $statusCmd->execCmd();
