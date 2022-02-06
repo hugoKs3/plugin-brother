@@ -287,6 +287,7 @@ class brother extends eqLogic {
     
     $html = template_replace($replace, getTemplate('core', $version, 'brother.template', __CLASS__));
     cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
+    return $html;
   }
 
 }
