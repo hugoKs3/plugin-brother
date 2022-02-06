@@ -16,8 +16,6 @@ Plusieurs commandes sont disponibles comme les différents niveaux d'encre.
 
 Le plugin **Brother** ne requiert aucune configuration particulière et doit juste être activé après son installation.
 
-Les données peuvent être récuprées toutes les 5, 10, 15, 30, 60 minutes, ou quotidiennement. Sélectionnez celles que vous voulez.
-
 ## Configuration des équipements
 
 Pour accéder aux différents équipements **Brother**, ouvrez le menu **Plugins → Monitoring → Brother**.

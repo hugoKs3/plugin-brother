@@ -16,8 +16,6 @@ Several commands are availale like the different ink/toner levels.
 
 The plugin **Brother** does not require any specific configuration and should only be activated after installation.
 
-The data can be checked every 5, 10, 15, 30, 60 minutes or daily. Just check the ones you want
-
 ## Equipment configuration
 
 To access the different equipment **Brother**, go to the menu **Plugins → Monitoring → Brother**.

@@ -26,32 +26,7 @@ class brother extends eqLogic {
 
 	/* * ***********************Methode static*************************** */
 
-  public static function cron5() {
-    proceed();
-  }
-
-  public static function cron10() {
-    proceed();
-  }
-
-  public static function cron15() {
-    proceed();
-  }
-
-  public static function cron30() {
-    proceed();
-  }
-
   public static function cronHourly() {
-    proceed();
-  }
-
-  public static function cronDaily() {
-    proceed();
-  }
-
-  public static function proceed()
-  {
     $eqLogics = self::byType(__CLASS__, true);
 
     foreach ($eqLogics as $eqLogic)
@@ -134,10 +109,10 @@ class brother extends eqLogic {
       $cmd->setSubType('numeric');
       $cmd->setIsHistorized(1);
       $cmd->setIsVisible(1);
-      $cmd->setTemplate('dashboard','tile');
-      $cmd->setTemplate('mobile','tile');
       $cmd->setUnite('%');
       $cmd->setGeneric_type('CONSUMPTION');
+      $cmd->setConfiguration('minValue', 0); 
+      $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
     $cmd = $this->getCmd(null, 'cyan');
@@ -150,10 +125,10 @@ class brother extends eqLogic {
       $cmd->setSubType('numeric');
       $cmd->setIsHistorized(1);
       $cmd->setIsVisible(1);
-      $cmd->setTemplate('dashboard','tile');
-      $cmd->setTemplate('mobile','tile');
       $cmd->setUnite('%');
       $cmd->setGeneric_type('CONSUMPTION');
+      $cmd->setConfiguration('minValue', 0); 
+      $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
     $cmd = $this->getCmd(null, 'magenta');
@@ -166,10 +141,10 @@ class brother extends eqLogic {
       $cmd->setSubType('numeric');
       $cmd->setIsHistorized(1);
       $cmd->setIsVisible(1);
-      $cmd->setTemplate('dashboard','tile');
-      $cmd->setTemplate('mobile','tile');
       $cmd->setUnite('%');
       $cmd->setGeneric_type('CONSUMPTION');
+      $cmd->setConfiguration('minValue', 0); 
+      $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
     $cmd = $this->getCmd(null, 'yellow');
@@ -182,10 +157,10 @@ class brother extends eqLogic {
       $cmd->setSubType('numeric');
       $cmd->setIsHistorized(1);
       $cmd->setIsVisible(1);
-      $cmd->setTemplate('dashboard','tile');
-      $cmd->setTemplate('mobile','tile');
       $cmd->setUnite('%');
       $cmd->setGeneric_type('CONSUMPTION');
+      $cmd->setConfiguration('minValue', 0); 
+      $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
     $cmd = $this->getCmd(null, 'refresh');
