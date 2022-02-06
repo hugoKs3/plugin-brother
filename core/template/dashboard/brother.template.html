@@ -10,25 +10,10 @@
 		<a href="#eqLink#" class="reportModeHidden">#name_display# <span class="object_name">#object_name#</span></a>
 	</center>
     <div>
-        <div style="width: 50%; display:inline-block;">
-            <center>
-                <figure class="highcharts-figure">
-                    <div id="gauge-container"></div>                
-                </figure>
-            </center>
-        </div>
-        <div style="width: 50%; float: right;">
-            <center>
-                blah
-            </center>
-        </div>
+        <figure class="highcharts-figure">
+            <div id="gauge-container"></div>                
+        </figure>
     </div>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script>
         if ('#refresh_id#' != ''){
 			$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
