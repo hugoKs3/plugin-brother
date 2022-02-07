@@ -163,6 +163,21 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
+    $cmd = $this->getCmd(null, 'lastprints');
+    if ( ! is_object($cmd)) {
+      $cmd = new brotherCmd();
+      $cmd->setName('Impressions dans la dernière heure');
+      $cmd->setEqLogic_id($this->getId());
+      $cmd->setLogicalId('lastprints');
+      $cmd->setType('info');
+      $cmd->setSubType('numeric');
+      $cmd->setIsHistorized(1);
+      $cmd->setIsVisible(1);
+      $cmd->setGeneric_type('CONSUMPTION');
+      $cmd->setTemplate('dashboard','tile');
+      $cmd->setTemplate('mobile','tile');
+      $cmd->save();
+    }
     $cmd = $this->getCmd(null, 'refresh');
     if (!is_object($cmd)) {
       $cmd = new brotherCmd();
@@ -220,10 +235,30 @@ class brother extends eqLogic {
     
   public function recordData($obj) {
     if ($this->getIsEnable()) {
-      $this->checkAndUpdateCmd('model', $obj->model);
-      $this->checkAndUpdateCmd('serial', $obj->serial);
-      $this->checkAndUpdateCmd('firmware', $obj->firmware);
-      $this->checkAndUpdateCmd('status', $obj->status);
+      if (!is_null($obj->model)) {
+        $this->checkAndUpdateCmd('model', $obj->model);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for model: ' . $obj->model);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for model');
+      }
+      if (!is_null($obj->serial)) {
+        $this->checkAndUpdateCmd('serial', $obj->serial);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for serial: ' . $obj->serial);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for serial');
+      }
+      if (!is_null($obj->firmware)) {
+        $this->checkAndUpdateCmd('firmware', $obj->firmware);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for firmware: ' . $obj->firmware);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for firmware');
+      }
+      if (!is_null($obj->status)) {
+        $this->checkAndUpdateCmd('status', $obj->status);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for status: ' . $obj->status);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for status');
+      }
 
       $type = $this->getConfiguration('brotherType');
       $printertype = "ink";
@@ -233,10 +268,30 @@ class brother extends eqLogic {
       $colors = ["black", "cyan", "magenta", "yellow"];
       foreach ($colors as $color) {
         $index = $color . '_' . $printertype . '_remaining';
-        $this->checkAndUpdateCmd($color, $obj->$index);
+        if (!is_null($obj->$index)) {
+          $this->checkAndUpdateCmd($color, $obj->$index);
+          log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for ' . $color . ': ' . $obj->$index);
+        } else {
+          log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for ' . $index);
+        }
       }
 
-      $this->checkAndUpdateCmd('counter', $obj->page_counter);
+      $cmdCounter = $this->getCmd(null, 'counter');
+      $curCounterValue = $cmdCounter->execCmd();
+      if (!is_null($obj->page_counter) && !is_null($curCounterValue)) {
+        $lastprintsValue = $obj->page_counter - $curCounterValue;
+        $this->checkAndUpdateCmd('lastprints', $lastprintsValue);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for last prints: ' . $lastprintsValue);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for page_counter and/or last counter');
+      }
+
+      if (!is_null($obj->page_counter)) {
+        $this->checkAndUpdateCmd('counter', $obj->page_counter);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for counter: ' . $obj->page_counter);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for page_counter');
+      }
     }
   }
     
