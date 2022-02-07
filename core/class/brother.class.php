@@ -166,7 +166,7 @@ class brother extends eqLogic {
     $cmd = $this->getCmd(null, 'lastprints');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
-      $cmd->setName('Impressions dans la dernière heure');
+      $cmd->setName('Dernières impressions');
       $cmd->setEqLogic_id($this->getId());
       $cmd->setLogicalId('lastprints');
       $cmd->setType('info');

@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
       $cmd = $eqLogic->getCmd(null, 'lastprints');
       if ( ! is_object($cmd)) {
         $cmd = new brotherCmd();
-        $cmd->setName('Impressions dans la dernière heure');
+        $cmd->setName('Dernières impressions');
         $cmd->setEqLogic_id($eqLogic->getId());
         $cmd->setLogicalId('lastprints');
         $cmd->setType('info');
