@@ -266,7 +266,7 @@ class brother extends eqLogic {
         $printertype = "toner";
       }
       $colors = ["black", "cyan", "magenta", "yellow"];
-      $colorType = $this->getConfiguration('brotherType');
+      $colorType = $this->getConfiguration('brotherColorType');
       if ($colorType == 0) {
         $colors = ["black"];
       }
