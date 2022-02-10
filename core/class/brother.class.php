@@ -358,13 +358,16 @@ class brother extends eqLogic {
 
     $statusCmd = $this->getCmd(null, 'status');
     if ($statusCmd->getIsVisible() == 1) {
-        $replace['#brother_status#'] = $statusCmd->execCmd();
+        $replace['#brother_status#'] = 'Status : ' . $statusCmd->execCmd();
+    } else {
+      $replace['#brother_status#'] = '';
     }
     $pagesCmd = $this->getCmd(null, 'counter');
     if ($pagesCmd->getIsVisible() == 1) {
         $replace['#brother_counter#'] = $pagesCmd->execCmd();
+    } else {
+      $replace['#brother_counter#'] = '';
     }
-    
     $html = template_replace($replace, getTemplate('core', $version, 'brother.template', __CLASS__));
     cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
     return $html;
