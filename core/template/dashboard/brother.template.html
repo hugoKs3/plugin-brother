@@ -19,7 +19,24 @@
             </center>
         </div>
         <div style="width: 50%; float: right;">
-            <b>#brother_status#</b>
+            <center>
+            #brother_status#
+            <br/>
+            <div class="cmd cmd-widget history cursor tooltipstered pageCounter" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#brother_counter_id#" data-cmd_uid="#brother_counter_uid#" data-version="dashboard" data-eqlogic_id="#brother_counter_eqid#" title="Date de valeur : #brother_counter_valueDate#<br/>Date de collecte : #brother_counter_collectDate#">
+                <div class="title ">
+                  <div class="cmdName">Pages</div>
+                </div>
+                <div class="content-sm">
+                  <span class="pull-right"></span>
+                  <span class="pull-right state">#brother_counter#</span>
+                </div>
+                <div class="value hidden">
+                  <div class="col-xs-12 center-block">
+                    <span class="tooltips tooltipstered">#minHistoryValue#</span>|<span class="tooltips tooltipstered">#averageHistoryValue#</span>|<span class="tooltips tooltipstered">#maxHistoryValue#</span> <i class=""></i>
+                  </div>
+                </div>
+            </div>
+            </center>
         </div>
     </div>
     <script>
@@ -30,6 +47,17 @@
 		}else{
 			$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove();
 		}
+
+        if ('#brother_counter_id#' == '') {
+            $('.eqLogic[data-eqLogic_uid=#uid#] .pageCounter').remove();
+        }
+        
+
+        jeedom.cmd.update['3850'] = function(_options) {
+                    $('.cmd[data-cmd_id=3850]').attr('title', 'Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+                    $('.cmd[data-cmd_id=3850] .state').empty().append(_options.display_value)
+                  }
+                  jeedom.cmd.update['3850']({display_value: '6', valueDate: '2021-10-12 23:00:19', collectDate: '2022-02-10 21:00:46', alertLevel: 'none'})
 
         Highcharts.chart('ink-gauge-container', {
             credits: {enabled: false},

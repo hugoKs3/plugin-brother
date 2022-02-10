@@ -358,15 +358,20 @@ class brother extends eqLogic {
 
     $statusCmd = $this->getCmd(null, 'status');
     if ($statusCmd->getIsVisible() == 1) {
-        $replace['#brother_status#'] = 'Status : ' . $statusCmd->execCmd();
+        $replace['#brother_status#'] = 'Status : <b>' . $statusCmd->execCmd() . '</b>';
     } else {
       $replace['#brother_status#'] = '';
     }
     $pagesCmd = $this->getCmd(null, 'counter');
     if ($pagesCmd->getIsVisible() == 1) {
         $replace['#brother_counter#'] = $pagesCmd->execCmd();
+        $replace['#brother_counter_id#'] = $pagesCmd->getId();
+        $replace['#brother_counter_uid#'] = $pagesCmd->getId();
+        $replace['#brother_counter_eqid#'] = $replace['#uid#'];
+        $replace['#brother_counter_valueDate#'] = $pagesCmd->getValuetDate();
+        $replace['#brother_counter_collectDate#'] = $pagesCmd->getCollectDate();
     } else {
-      $replace['#brother_counter#'] = '';
+      $replace['#brother_counter_id#'] = '';
     }
     $html = template_replace($replace, getTemplate('core', $version, 'brother.template', __CLASS__));
     cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
