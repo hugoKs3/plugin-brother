@@ -37,6 +37,7 @@ class brother extends eqLogic {
 
 	public function postSave() {
     $cmd = $this->getCmd(null, 'model');
+    $colorType = $this->getConfiguration('brotherType');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
       $cmd->setName('Modèle');
@@ -131,6 +132,7 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
+    $cmd->setIsVisible($colorType);
     $cmd = $this->getCmd(null, 'magenta');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
@@ -147,6 +149,7 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
+    $cmd->setIsVisible($colorType);
     $cmd = $this->getCmd(null, 'yellow');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
@@ -163,6 +166,7 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
+    $cmd->setIsVisible($colorType);
     $cmd = $this->getCmd(null, 'lastprints');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
