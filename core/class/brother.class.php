@@ -322,7 +322,7 @@ class brother extends eqLogic {
         $replace['#black_bkg#'] = 0.1;
     } else {
         $replace['#black_level#'] = 0;
-        $replace['#cyan_visible#'] = 0;
+        $replace['#black_visible#'] = 0;
         $replace['#black_bkg#'] = 0;
     }
 
@@ -334,7 +334,7 @@ class brother extends eqLogic {
     } else {
         $replace['#cyan_level#'] = 0;
         $replace['#cyan_visible#'] = 0;
-        $replace['#black_bkg#'] = 0;
+        $replace['#cyan_bkg#'] = 0;
     }
 
     $magentaCmd = $this->getCmd(null, 'magenta');
