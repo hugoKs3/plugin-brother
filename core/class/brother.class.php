@@ -368,7 +368,7 @@ class brother extends eqLogic {
         $replace['#brother_counter_id#'] = $pagesCmd->getId();
         $replace['#brother_counter_uid#'] = $pagesCmd->getId();
         $replace['#brother_counter_eqid#'] = $replace['#uid#'];
-        $replace['#brother_counter_valueDate#'] = $pagesCmd->getValuetDate();
+        $replace['#brother_counter_valueDate#'] = $pagesCmd->getValueDate();
         $replace['#brother_counter_collectDate#'] = $pagesCmd->getCollectDate();
     } else {
       $replace['#brother_counter_id#'] = '';
