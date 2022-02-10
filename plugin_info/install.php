@@ -43,6 +43,11 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
       }
       $eqLogic->save();
     }
+    foreach (eqLogic::byType('mybin') as $eqLogic) {
+      if ($eqLogic->getConfiguration('brotherColorType', 'unset') === 'unset') {
+          $eqLogic->setConfiguration('brotherColorType', 1);
+      }
+    }
   }
 
 // Fonction exécutée automatiquement après la suppression du plugin
