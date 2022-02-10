@@ -4,6 +4,11 @@
 >
 >As a reminder if there is no information on the update, it means that it only concerns the updating of documentation, translation or text.
 
+# Beta - 10/02/2022
+- Choice of printer's type (color or back & white)
+- Smaller widget with status and page counters information 
+- Widget compatible with visible status of commands
+
 # Beta - 07/02/2022
 - Add logs
 - New commands for number of prints in the last hour
