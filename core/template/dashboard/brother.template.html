@@ -60,13 +60,6 @@
         if ('#brother_lastprints_id#' == '') {
             $('.eqLogic[data-eqLogic_uid=#uid#] .lastprints').remove();
         }
-        
-
-        jeedom.cmd.update['3850'] = function(_options) {
-                    $('.cmd[data-cmd_id=3850]').attr('title', 'Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
-                    $('.cmd[data-cmd_id=3850] .state').empty().append(_options.display_value)
-                  }
-                  jeedom.cmd.update['3850']({display_value: '6', valueDate: '2021-10-12 23:00:19', collectDate: '2022-02-10 21:00:46', alertLevel: 'none'})
 
         Highcharts.chart('ink-gauge-container', {
             credits: {enabled: false},
