@@ -313,31 +313,47 @@ class brother extends eqLogic {
     }
     
     $blackCmd = $this->getCmd(null, 'black');
-    if ($blackCmd->getIsVisible() == 1) {
+    if (!is_null($blackCmd) && $blackCmd->getIsVisible() == 1) {
         $replace['#black_level#'] = $blackCmd->execCmd();
+        $replace['#black_visible#'] = 1;
+        $replace['#black_bkg#'] = 0.1;
     } else {
         $replace['#black_level#'] = 0;
+        $replace['#cyan_visible#'] = 0;
+        $replace['#black_bkg#'] = 0;
     }
 
     $cyanCmd = $this->getCmd(null, 'cyan');
-    if ($cyanCmd->getIsVisible() == 1) {
+    if (!is_null($cyanCmd) && $cyanCmd->getIsVisible() == 1) {
         $replace['#cyan_level#'] = $cyanCmd->execCmd();
+        $replace['#cyan_visible#'] = 1;
+        $replace['#cyan_bkg#'] = 0.1;
     } else {
         $replace['#cyan_level#'] = 0;
+        $replace['#cyan_visible#'] = 0;
+        $replace['#black_bkg#'] = 0;
     }
 
     $magentaCmd = $this->getCmd(null, 'magenta');
-    if ($magentaCmd->getIsVisible() == 1) {
+    if (!is_null($magentaCmd) && $magentaCmd->getIsVisible() == 1) {
         $replace['#magenta_level#'] = $magentaCmd->execCmd();
+        $replace['#magenta_visible#'] = 1;
+        $replace['#magenta_bkg#'] = 0.1;
     } else {
         $replace['#magenta_level#'] = 0;
+        $replace['#magenta_visible#'] = 0;
+        $replace['#magenta_bkg#'] = 0;
     }
 
     $yellowCmd = $this->getCmd(null, 'yellow');
-    if ($yellowCmd->getIsVisible() == 1) {
+    if (!is_null($yellowCmd) && $yellowCmd->getIsVisible() == 1) {
         $replace['#yellow_level#'] = $yellowCmd->execCmd();
+        $replace['#yellow_visible#'] = 1;
+        $replace['#yellow_bkg#'] = 0.1;
     } else {
         $replace['#yellow_level#'] = 0;
+        $replace['#yellow_visible#'] = 0;
+        $replace['#yellow_bkg#'] = 0;
     }
 
     $statusCmd = $this->getCmd(null, 'status');
