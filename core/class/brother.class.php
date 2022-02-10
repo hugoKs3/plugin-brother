@@ -115,6 +115,7 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
+    $cmd = $this->getCmd(null, 'cyan');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
       $cmd->setName('Cyan');
