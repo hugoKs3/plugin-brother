@@ -373,6 +373,17 @@ class brother extends eqLogic {
     } else {
       $replace['#brother_counter_id#'] = '';
     }
+    $lastprintsCmd = $this->getCmd(null, 'lastprints');
+    if ($lastprintsCmd->getIsVisible() == 1) {
+        $replace['#brother_lastprints#'] = $lastprintsCmd->execCmd();
+        $replace['#brother_lastprints_id#'] = $lastprintsCmd->getId();
+        $replace['#brother_lastprints_uid#'] = $lastprintsCmd->getId();
+        $replace['#brother_lastprints_eqid#'] = $replace['#uid#'];
+        $replace['#brother_lastprints_valueDate#'] = $lastprintsCmd->getValueDate();
+        $replace['#brother_lastprints_collectDate#'] = $lastprintsCmd->getCollectDate();
+    } else {
+      $replace['#brother_lastprints_id#'] = '';
+    }
     $html = template_replace($replace, getTemplate('core', $version, 'brother.template', __CLASS__));
     cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
     return $html;
