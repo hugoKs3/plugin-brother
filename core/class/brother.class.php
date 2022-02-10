@@ -37,7 +37,6 @@ class brother extends eqLogic {
 
 	public function postSave() {
     $cmd = $this->getCmd(null, 'model');
-    $colorType = $this->getConfiguration('brotherType');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
       $cmd->setName('Modèle');
@@ -116,7 +115,6 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
-    $cmd = $this->getCmd(null, 'cyan');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
       $cmd->setName('Cyan');
@@ -132,7 +130,6 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
-    $cmd->setIsVisible($colorType);
     $cmd = $this->getCmd(null, 'magenta');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
@@ -149,7 +146,6 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
-    $cmd->setIsVisible($colorType);
     $cmd = $this->getCmd(null, 'yellow');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
@@ -166,7 +162,6 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
-    $cmd->setIsVisible($colorType);
     $cmd = $this->getCmd(null, 'lastprints');
     if ( ! is_object($cmd)) {
       $cmd = new brotherCmd();
@@ -270,6 +265,10 @@ class brother extends eqLogic {
         $printertype = "toner";
       }
       $colors = ["black", "cyan", "magenta", "yellow"];
+      $colorType = $this->getConfiguration('brotherType');
+      if ($colorType == 0) {
+        $colors = ["black"];
+      }
       foreach ($colors as $color) {
         $index = $color . '_' . $printertype . '_remaining';
         if (!is_null($obj->$index)) {
@@ -397,7 +396,15 @@ class brother extends eqLogic {
 
 class brotherCmd extends cmd
 {
-    
+  
+  public function preSave(){
+    if ($this->getLogicalId() == 'cyan' || $this->getLogicalId() == 'yellow' || $this->getLogicalId() == 'magenta') {
+        $eqLogic = $this->getEqLogic();
+        $visible = $eqLogic->getConfiguration('brotherColorType',1);
+        $this->setIsVisible($visible); 
+    }
+}
+
   public function dontRemoveCmd() {
 		return true;
 	}
