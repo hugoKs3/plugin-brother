@@ -121,7 +121,14 @@
                     },
                     linecap: 'round',
                     stickyTracking: false,
-                    rounded: true
+                    rounded: true,
+                    point: {
+                        events: {
+                            click: function () {
+                                $('#md_modal2').dialog({title: "{{Historique}}"}).load('index.php?v=d&modal=cmd.history&id=' + this.options.key).dialog('open')
+                            }
+                        }
+                    }
                 }
             },
 
@@ -131,7 +138,8 @@
                     color: 'rgba(0,0,0,#black_visible#)',
                     radius: '99%',
                     innerRadius: '84%',
-                    y: #black_level#
+                    y: #black_level#,
+                    key: '#black_id#'
                 }]
             }, {
                 name: 'Cyan',
@@ -139,7 +147,8 @@
                     color: 'rgba(0,255,255,#cyan_visible#)',
                     radius: '83%',
                     innerRadius: '68%',
-                    y: #cyan_level#
+                    y: #cyan_level#,
+                    key: '#cyan_id#'
                 }]
             }, {
                 name: 'Magenta',
@@ -147,7 +156,8 @@
                     color: 'rgba(255,0,255,#magenta_visible#)',
                     radius: '67%',
                     innerRadius: '52%',
-                    y: #magenta_level#
+                    y: #magenta_level#,
+                    key: '#magenta_id#'
                 }]
             }, {
                 name: 'Yellow',
@@ -155,7 +165,8 @@
                     color: 'rgba(255,255,0,#yellow_visible#)',
                     radius: '51%',
                     innerRadius: '36%',
-                    y: #yellow_level#
+                    y: #yellow_level#,
+                    key: '#yellow_id#'
                 }]
             }]
         });
