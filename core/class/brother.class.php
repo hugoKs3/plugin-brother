@@ -324,6 +324,7 @@ class brother extends eqLogic {
     $blackCmd = $this->getCmd(null, 'black');
     if (!is_null($blackCmd) && $blackCmd->getIsVisible() == 1) {
         $replace['#black_level#'] = $blackCmd->execCmd();
+        $replace['#black_id#'] = $blackCmd->getId();
         $replace['#black_visible#'] = 1;
         $replace['#black_bkg#'] = 0.1;
     } else {
@@ -335,6 +336,7 @@ class brother extends eqLogic {
     $cyanCmd = $this->getCmd(null, 'cyan');
     if (!is_null($cyanCmd) && $cyanCmd->getIsVisible() == 1) {
         $replace['#cyan_level#'] = $cyanCmd->execCmd();
+        $replace['#cyan_id#'] = $cyanCmd->getId();
         $replace['#cyan_visible#'] = 1;
         $replace['#cyan_bkg#'] = 0.1;
     } else {
@@ -346,6 +348,7 @@ class brother extends eqLogic {
     $magentaCmd = $this->getCmd(null, 'magenta');
     if (!is_null($magentaCmd) && $magentaCmd->getIsVisible() == 1) {
         $replace['#magenta_level#'] = $magentaCmd->execCmd();
+        $replace['#magenta_id#'] = $magentaCmd->getId();
         $replace['#magenta_visible#'] = 1;
         $replace['#magenta_bkg#'] = 0.1;
     } else {
@@ -357,6 +360,7 @@ class brother extends eqLogic {
     $yellowCmd = $this->getCmd(null, 'yellow');
     if (!is_null($yellowCmd) && $yellowCmd->getIsVisible() == 1) {
         $replace['#yellow_level#'] = $yellowCmd->execCmd();
+        $replace['#yellow_id#'] = $yellowCmd->getId();
         $replace['#yellow_visible#'] = 1;
         $replace['#yellow_bkg#'] = 0.1;
     } else {

@@ -14,8 +14,6 @@ from datetime import date, datetime
 
 import json
 
-logging.basicConfig(level=logging.DEBUG)
-
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, datetime):
@@ -32,6 +30,12 @@ async def main():
 
     if mylog == "debug":
         logging.basicConfig(level=logging.DEBUG)
+    elif mylog == "info":
+        logging.basicConfig(level=logging.INFO)
+    elif mylog == "error":
+        logging.basicConfig(level=logging.ERROR)
+    elif mylog == "warning":
+        logging.basicConfig(level=logging.WARNING)
     else:
         logging.basicConfig(level=logging.INFO)
 
@@ -40,7 +44,7 @@ async def main():
     try:
         data = await brother.async_update()
     except (ConnectionError, SnmpError, UnsupportedModel) as error:
-        print(f"{error}")
+        logging.error(f"{error}")
         return
 
     brother.shutdown()
