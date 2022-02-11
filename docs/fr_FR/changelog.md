@@ -4,6 +4,11 @@
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# Beta - 11/02/2022
+- Niveau de logging du package python aligné avec la config Jeedom
+- Les items de la jauge sont maintenant cliquables pour accéder à l'historique
+- Fond gris sur la jauge pour une meilleur visibilité du niveau d'encre noire
+
 # Beta - 10/02/2022
 - Choix du type d'imprimante (couleur, noir & blanc)
 - Widget plus petit avec infos de status et du nombre de pages

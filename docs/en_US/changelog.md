@@ -4,6 +4,11 @@
 >
 >As a reminder if there is no information on the update, it means that it only concerns the updating of documentation, translation or text.
 
+# Beta - 11/02/2022
+- Python package logging level respect Jeedom logging config
+- Gauge items clickable for history
+- Grey background on gauge for better visibility of black ink 
+
 # Beta - 10/02/2022
 - Choice of printer's type (color or back & white)
 - Smaller widget with status and page counters information 
