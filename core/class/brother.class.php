@@ -163,6 +163,21 @@ class brother extends eqLogic {
       $cmd->setConfiguration('maxValue', 100);
       $cmd->save();
     }
+    $cmd = $this->getCmd(null, 'lastprints');
+    if ( ! is_object($cmd)) {
+      $cmd = new brotherCmd();
+      $cmd->setName('Dernières impressions');
+      $cmd->setEqLogic_id($this->getId());
+      $cmd->setLogicalId('lastprints');
+      $cmd->setType('info');
+      $cmd->setSubType('numeric');
+      $cmd->setIsHistorized(1);
+      $cmd->setIsVisible(1);
+      $cmd->setGeneric_type('CONSUMPTION');
+      $cmd->setTemplate('dashboard','tile');
+      $cmd->setTemplate('mobile','tile');
+      $cmd->save();
+    }
     $cmd = $this->getCmd(null, 'refresh');
     if (!is_object($cmd)) {
       $cmd = new brotherCmd();
@@ -179,8 +194,8 @@ class brother extends eqLogic {
   public function preInsert() {
     $this->setIsVisible(1);
     $this->setConfiguration('brotherWidget', 1);
-    $this->setDisplay('height','332px');
-    $this->setDisplay('width', '392px');
+    $this->setDisplay('height','192px');
+    $this->setDisplay('width', '312px');
     $this->setIsEnable(1);
   }        
     
@@ -220,10 +235,30 @@ class brother extends eqLogic {
     
   public function recordData($obj) {
     if ($this->getIsEnable()) {
-      $this->checkAndUpdateCmd('model', $obj->model);
-      $this->checkAndUpdateCmd('serial', $obj->serial);
-      $this->checkAndUpdateCmd('firmware', $obj->firmware);
-      $this->checkAndUpdateCmd('status', $obj->status);
+      if (!is_null($obj->model)) {
+        $this->checkAndUpdateCmd('model', $obj->model);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for model: ' . $obj->model);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for model');
+      }
+      if (!is_null($obj->serial)) {
+        $this->checkAndUpdateCmd('serial', $obj->serial);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for serial: ' . $obj->serial);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for serial');
+      }
+      if (!is_null($obj->firmware)) {
+        $this->checkAndUpdateCmd('firmware', $obj->firmware);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for firmware: ' . $obj->firmware);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for firmware');
+      }
+      if (!is_null($obj->status)) {
+        $this->checkAndUpdateCmd('status', $obj->status);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for status: ' . $obj->status);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for status');
+      }
 
       $type = $this->getConfiguration('brotherType');
       $printertype = "ink";
@@ -231,12 +266,41 @@ class brother extends eqLogic {
         $printertype = "toner";
       }
       $colors = ["black", "cyan", "magenta", "yellow"];
+      $colorType = $this->getConfiguration('brotherColorType');
+      if ($colorType == 0) {
+        $colors = ["black"];
+      }
       foreach ($colors as $color) {
         $index = $color . '_' . $printertype . '_remaining';
-        $this->checkAndUpdateCmd($color, $obj->$index);
+        if (!is_null($obj->$index)) {
+          $this->checkAndUpdateCmd($color, $obj->$index);
+          log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for ' . $color . ': ' . $obj->$index);
+        } else {
+          log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for ' . $index);
+        }
       }
 
-      $this->checkAndUpdateCmd('counter', $obj->page_counter);
+      $cmdCounter = $this->getCmd(null, 'counter');
+      $curCounterValue = $cmdCounter->execCmd();
+      if (!is_null($obj->page_counter) && !is_null($curCounterValue)) {
+        $cmdLasPrints = $this->getCmd(null, 'lastprints');
+        if (!is_null($cmdLasPrints) && $cmdLasPrints->execCmd() == '') {
+          $lastprintsValue = 0;
+        } else {
+          $lastprintsValue = $obj->page_counter - $curCounterValue;
+        }
+        $this->checkAndUpdateCmd('lastprints', $lastprintsValue);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for last prints: ' . $lastprintsValue);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for page_counter and/or last counter');
+      }
+
+      if (!is_null($obj->page_counter)) {
+        $this->checkAndUpdateCmd('counter', $obj->page_counter);
+        log::add(__CLASS__, 'info', $this->getHumanName() . ' record value for counter: ' . $obj->page_counter);
+      } else {
+        log::add(__CLASS__, 'error', $this->getHumanName() . ' null value for page_counter');
+      }
     }
   }
     
@@ -258,42 +322,81 @@ class brother extends eqLogic {
     }
     
     $blackCmd = $this->getCmd(null, 'black');
-    if ($blackCmd->getIsVisible() == 1) {
+    if (!is_null($blackCmd) && $blackCmd->getIsVisible() == 1) {
         $replace['#black_level#'] = $blackCmd->execCmd();
+        $replace['#black_id#'] = $blackCmd->getId();
+        $replace['#black_visible#'] = 1;
+        $replace['#black_bkg#'] = 0.1;
     } else {
         $replace['#black_level#'] = 0;
+        $replace['#black_visible#'] = 0;
+        $replace['#black_bkg#'] = 0;
     }
 
     $cyanCmd = $this->getCmd(null, 'cyan');
-    if ($cyanCmd->getIsVisible() == 1) {
+    if (!is_null($cyanCmd) && $cyanCmd->getIsVisible() == 1) {
         $replace['#cyan_level#'] = $cyanCmd->execCmd();
+        $replace['#cyan_id#'] = $cyanCmd->getId();
+        $replace['#cyan_visible#'] = 1;
+        $replace['#cyan_bkg#'] = 0.1;
     } else {
         $replace['#cyan_level#'] = 0;
+        $replace['#cyan_visible#'] = 0;
+        $replace['#cyan_bkg#'] = 0;
     }
 
     $magentaCmd = $this->getCmd(null, 'magenta');
-    if ($magentaCmd->getIsVisible() == 1) {
+    if (!is_null($magentaCmd) && $magentaCmd->getIsVisible() == 1) {
         $replace['#magenta_level#'] = $magentaCmd->execCmd();
+        $replace['#magenta_id#'] = $magentaCmd->getId();
+        $replace['#magenta_visible#'] = 1;
+        $replace['#magenta_bkg#'] = 0.1;
     } else {
         $replace['#magenta_level#'] = 0;
+        $replace['#magenta_visible#'] = 0;
+        $replace['#magenta_bkg#'] = 0;
     }
 
     $yellowCmd = $this->getCmd(null, 'yellow');
-    if ($yellowCmd->getIsVisible() == 1) {
+    if (!is_null($yellowCmd) && $yellowCmd->getIsVisible() == 1) {
         $replace['#yellow_level#'] = $yellowCmd->execCmd();
+        $replace['#yellow_id#'] = $yellowCmd->getId();
+        $replace['#yellow_visible#'] = 1;
+        $replace['#yellow_bkg#'] = 0.1;
     } else {
         $replace['#yellow_level#'] = 0;
+        $replace['#yellow_visible#'] = 0;
+        $replace['#yellow_bkg#'] = 0;
     }
 
     $statusCmd = $this->getCmd(null, 'status');
     if ($statusCmd->getIsVisible() == 1) {
-        $replace['#brother_status#'] = $statusCmd->execCmd();
+        $replace['#brother_status#'] = 'Status : <b>' . $statusCmd->execCmd() . '</b>';
+    } else {
+      $replace['#brother_status#'] = '';
     }
     $pagesCmd = $this->getCmd(null, 'counter');
     if ($pagesCmd->getIsVisible() == 1) {
         $replace['#brother_counter#'] = $pagesCmd->execCmd();
+        $replace['#brother_counter_id#'] = $pagesCmd->getId();
+        $replace['#brother_counter_uid#'] = $pagesCmd->getId();
+        $replace['#brother_counter_eqid#'] = $replace['#uid#'];
+        $replace['#brother_counter_valueDate#'] = $pagesCmd->getValueDate();
+        $replace['#brother_counter_collectDate#'] = $pagesCmd->getCollectDate();
+    } else {
+      $replace['#brother_counter_id#'] = '';
     }
-    
+    $lastprintsCmd = $this->getCmd(null, 'lastprints');
+    if ($lastprintsCmd->getIsVisible() == 1) {
+        $replace['#brother_lastprints#'] = $lastprintsCmd->execCmd();
+        $replace['#brother_lastprints_id#'] = $lastprintsCmd->getId();
+        $replace['#brother_lastprints_uid#'] = $lastprintsCmd->getId();
+        $replace['#brother_lastprints_eqid#'] = $replace['#uid#'];
+        $replace['#brother_lastprints_valueDate#'] = $lastprintsCmd->getValueDate();
+        $replace['#brother_lastprints_collectDate#'] = $lastprintsCmd->getCollectDate();
+    } else {
+      $replace['#brother_lastprints_id#'] = '';
+    }
     $html = template_replace($replace, getTemplate('core', $version, 'brother.template', __CLASS__));
     cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
     return $html;
@@ -303,7 +406,15 @@ class brother extends eqLogic {
 
 class brotherCmd extends cmd
 {
-    
+  
+  public function preSave(){
+    if ($this->getLogicalId() == 'cyan' || $this->getLogicalId() == 'yellow' || $this->getLogicalId() == 'magenta') {
+        $eqLogic = $this->getEqLogic();
+        $visible = $eqLogic->getConfiguration('brotherColorType',1);
+        $this->setIsVisible($visible); 
+    }
+}
+
   public function dontRemoveCmd() {
 		return true;
 	}

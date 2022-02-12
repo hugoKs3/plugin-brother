@@ -104,12 +104,23 @@ foreach ($eqLogics as $eqLogic) {
 			 <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="brotherAddress" placeholder="Adresse IP / Nom d'hôte"/>
 	 </div>
  <div class="form-group">
-	 <label class="col-sm-6 control-label help">{{Type de l'imprimante}}</label>
+	 <label class="col-sm-6 control-label help">{{Technologie de l'imprimante}}</label>
 	 <div class="col-sm-6">
          
         <select id="sel_object_template" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="brotherType">
             <option value="ink">{{Jet d'encre}}</option>
             <option value="laser">{{Laser}}</option>
+        </select>
+
+ 	 </div>
+	</div>
+  <div class="form-group">
+	 <label class="col-sm-6 control-label help">{{Type de l'imprimante}}</label>
+	 <div class="col-sm-6">
+         
+        <select id="sel_object_template" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="brotherColorType">
+            <option value="1">{{Couleur}}</option>
+            <option value="0">{{Noir & Blanc}}</option>
         </select>
 
  	 </div>
