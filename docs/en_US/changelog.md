@@ -4,6 +4,9 @@
 >
 >As a reminder if there is no information on the update, it means that it only concerns the updating of documentation, translation or text.
 
+# Stable - 12/02/2022
+- First stable version
+
 # Beta - 11/02/2022
 - Python package logging level respect Jeedom logging config
 - Gauge items clickable for history
