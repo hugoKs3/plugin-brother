@@ -1,5 +1,4 @@
 <div class="eqLogic eqLogic-widget #eqType# allowResize" style="width:#width#;height:#height#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" data-eqType="#eqType#" data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#" >
-	<link rel="stylesheet" href="plugins/brohter/data/css/brother.template.css"/>
     <center class="widget-name">
 		<span class="warning" title="#alert_name#">
 			<i class='#alert_icon#'></i>
@@ -20,10 +19,14 @@
         </div>
         <div style="width: 50%; float: right;">
             <center>
-            #brother_status#
+            <div class="cmd cmd-widget brotherStatus" data-type="info" data-subtype="numeric" data-template="line" data-cmd_id="#brother_status_id#" data-cmd_uid="#brother_status_uid#" data-version="#version#" data-eqlogic_id="#brother_status_eqid#" data-alertlevel="none" title="Date de valeur : #brother_status_valueDate#<br/>Date de collecte : #brother_status_collectDate#">
+                <div class="content-xs">
+                    <span class="cmdName ">Status </span> <strong class="state">#brother_status#</strong>
+                </div>
+
+            </div>    
             <br/>
-            <br/>
-            <div class="cmd cmd-widget history cursor tooltipstered pageCounter" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#brother_counter_id#" data-cmd_uid="#brother_counter_uid#" data-version="#version#" data-eqlogic_id="#brother_counter_eqid#" title="Date de valeur : #brother_counter_valueDate#<br/>Date de collecte : #brother_counter_collectDate#">
+            <div class="cmd cmd-widget history cursor pageCounter" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#brother_counter_id#" data-cmd_uid="#brother_counter_uid#" data-version="#version#" data-eqlogic_id="#brother_counter_eqid#" title="Date de valeur : #brother_counter_valueDate#<br/>Date de collecte : #brother_counter_collectDate#">
                 <div class="title ">
                   <div class="cmdName">Pages</div>
                 </div>
@@ -33,7 +36,7 @@
                 </div>
             </div>
             <br/>
-            <div class="cmd cmd-widget history cursor tooltipstered lastprints" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#brother_lastprints_id#" data-cmd_uid="#brother_lastprints_uid#" data-version="#version#" data-eqlogic_id="#brother_lastprints_eqid#" title="Date de valeur : #brother_lastprints_valueDate#<br/>Date de collecte : #brother_lastprints_collectDate#">
+            <div class="cmd cmd-widget history cursor lastprints" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#brother_lastprints_id#" data-cmd_uid="#brother_lastprints_uid#" data-version="#version#" data-eqlogic_id="#brother_lastprints_eqid#" title="Date de valeur : #brother_lastprints_valueDate#<br/>Date de collecte : #brother_lastprints_collectDate#">
                 <div class="title ">
                   <div class="cmdName">Dernières impressions</div>
                 </div>
@@ -59,6 +62,9 @@
         }
         if ('#brother_lastprints_id#' == '') {
             $('.eqLogic[data-eqLogic_uid=#uid#] .lastprints').remove();
+        }
+        if ('#brother_status_id#' == '') {
+            $('.eqLogic[data-eqLogic_uid=#uid#] .brotherStatus').remove();
         }
 
         Highcharts.chart('ink-gauge-container', {
