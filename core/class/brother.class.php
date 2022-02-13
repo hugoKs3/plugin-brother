@@ -371,9 +371,14 @@ class brother extends eqLogic {
 
     $statusCmd = $this->getCmd(null, 'status');
     if ($statusCmd->getIsVisible() == 1) {
-        $replace['#brother_status#'] = 'Status : <b>' . $statusCmd->execCmd() . '</b>';
+      $replace['#brother_status#'] = $statusCmd->execCmd();
+      $replace['#brother_status_id#'] = $statusCmd->getId();
+      $replace['#brother_status_uid#'] = $statusCmd->getId();
+      $replace['#brother_status_eqid#'] = $replace['#uid#'];
+      $replace['#brother_status_valueDate#'] = $statusCmd->getValueDate();
+      $replace['#brother_status_collectDate#'] = $statusCmd->getCollectDate();
     } else {
-      $replace['#brother_status#'] = '';
+      $replace['#brother_status_id#'] = '';
     }
     $pagesCmd = $this->getCmd(null, 'counter');
     if ($pagesCmd->getIsVisible() == 1) {
