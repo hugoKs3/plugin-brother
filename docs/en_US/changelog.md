@@ -4,6 +4,9 @@
 >
 >As a reminder if there is no information on the update, it means that it only concerns the updating of documentation, translation or text.
 
+# Stable - 18/02/2022
+- Fix on last prints computation
+
 # Stable - 12/02/2022
 - First stable version
 
