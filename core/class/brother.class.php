@@ -284,7 +284,7 @@ class brother extends eqLogic {
       $curCounterValue = $cmdCounter->execCmd();
       if (!is_null($obj->page_counter) && !is_null($curCounterValue)) {
         $cmdLasPrints = $this->getCmd(null, 'lastprints');
-        if (!is_null($cmdLasPrints) && $cmdLasPrints->execCmd() == '') {
+        if (!is_null($cmdLasPrints) && is_null($cmdLasPrints->execCmd())) {
           log::add(__CLASS__, 'debug', $this->getHumanName() . ' lastprints: ' . $cmdLasPrints->execCmd());
           $lastprintsValue = 0;
         } else {
