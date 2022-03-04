@@ -42,8 +42,8 @@ class brother extends eqLogic {
     if (is_object($cron)) {
       $cron->stop();
       $cron->remove();
+      log::add(__CLASS__, 'debug', 'Manual refresh cron deleted');
     }
-    log::add(__CLASS__, 'debug', 'Manual refresh cron deleted');
   }
 
 	public function postSave() {
@@ -212,20 +212,23 @@ class brother extends eqLogic {
   
   public function setManualRrefresh() {
     $cron = cron::byClassAndFunction('brother', 'manualRefresh');
+    $now = new DateTime('NOW');
+    $now->modify('+1 minute');
+    $cronExpr = $now->format('i H j n') . ' *';
     if (!is_object($cron)) {
-      $now = new DateTime('NOW');
-      $now->modify('+1 minute');
-      $cronExpr = $now->format('i H j n') . ' *';
       $cron = new cron();
       $cron->setClass('brother');
       $cron->setFunction('executeManualRefresh');
-      //$cron->setOption($this->getId());
       $cron->setEnable(1);
       $cron->setDeamon(0);
+      $cron->setOnce(1);
       $cron->setSchedule($cronExpr);
       $cron->save();
-      log::add(__CLASS__, 'debug', 'Manual refresh cron scheduled : ' . $cronExpr);
+    } else {
+      $cron->setSchedule($cronExpr);
+      $cron->save();
     }
+    log::add(__CLASS__, 'debug', 'Manual refresh cron scheduled : ' . $cronExpr);
   }
     
   public function pullBrother() {
