@@ -220,7 +220,7 @@ class brother extends eqLogic {
       $now->modify('+2 minutes');
       $cronExpr = $now->format('i H j n') . ' *';
       $cron = new cron();
-      $cron->setClass('noip');
+      $cron->setClass('brother');
       $cron->setFunction('executeManualRefresh');
       //$cron->setOption($this->getId());
       $cron->setEnable(1);
