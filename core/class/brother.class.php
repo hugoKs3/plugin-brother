@@ -35,7 +35,7 @@ class brother extends eqLogic {
     }
   }
 
-  public static function executeManualRefresh($eqId) {
+  public static function executeManualRefresh() {
     $eqLogic = self::byId($eqId);
     if (is_object($eqLogic)) {
       $eqLogic->refreshInfo();
