@@ -35,6 +35,20 @@ class brother extends eqLogic {
     }
   }
 
+  public static function executeManualRefresh($eqId) {
+    $eqLogic = self::byId($eqId);
+    if (is_object($eqLogic)) {
+      $eqLogic->refreshInfo();
+    }
+    log::add(__CLASS__, 'debug', 'Manual refresh executed');
+    $cron = cron::byClassAndFunction('brother', 'manualRefresh');
+    if (is_object($cron)) {
+      $cron->stop();
+      $cron->remove();
+    }
+    log::add(__CLASS__, 'debug', 'Manual refresh cron deleted');
+  }
+
 	public function postSave() {
     $cmd = $this->getCmd(null, 'model');
     if ( ! is_object($cmd)) {
@@ -188,7 +202,7 @@ class brother extends eqLogic {
       $cmd->setSubType('other');
       $cmd->save();
     }
-    $this->refreshInfo();
+    $this->setManualRrefresh();
 	}
     
   public function preInsert() {
@@ -197,15 +211,33 @@ class brother extends eqLogic {
     $this->setDisplay('height','192px');
     $this->setDisplay('width', '312px');
     $this->setIsEnable(1);
-  }        
+  }
+  
+  public function setManualRrefresh() {
+    $cron = cron::byClassAndFunction('brother', 'manualRefresh');
+    if (!is_object($cron)) {
+      $now = new DateTime('NOW');
+      $now->modify('+2 minutes');
+      $cronExpr = $now->format('i H j n') . ' *';
+      $cron = new cron();
+      $cron->setClass('noip');
+      $cron->setFunction('executeManualRefresh');
+      //$cron->setOption($this->getId());
+      $cron->setEnable(1);
+      $cron->setDeamon(0);
+      $cron->setSchedule($cronExpr);
+      $cron->save();
+      log::add(__CLASS__, 'debug', 'Manual refresh cron scheduled : ' . $cronExpr);
+    }
+  }
     
   public function pullBrother() {
     $brother_path = dirname(__FILE__) . '/../..';
     $host = $this->getConfiguration('brotherAddress');
     $type = $this->getConfiguration('brotherType');
 
-    $cmd = 'sudo python3 ' . $brother_path . '/resources/jeeBrother.py ' . $host . ' ' . $type . ' ' . $brother_path . ' ' . log::convertLogLevel(log::getLogLevel('brother'));
-    log::add(__CLASS__, 'info', 'Lancement script No-Ip : ' . $cmd);
+    $cmd = 'python3 ' . $brother_path . '/resources/jeeBrother.py ' . $host . ' ' . $type . ' ' . $brother_path . ' ' . log::convertLogLevel(log::getLogLevel('brother'));
+    log::add(__CLASS__, 'info', 'Lancement script Brother : ' . $cmd);
 
     exec($cmd . ' >> ' . log::getPathToLog('brother') . ' 2>&1'); 
     $string = file_get_contents($brother_path . '/data/output.json');
@@ -429,10 +461,10 @@ class brotherCmd extends cmd
     if (!is_object($eqLogic) || $eqLogic->getIsEnable() != 1) {
         throw new Exception(__('Equipement desactivé impossible d\éxecuter la commande : ' . $this->getHumanName(), __FILE__));
     }
-    log::add('noip', 'debug', 'Execution de la commande ' . $this->getLogicalId());
+    log::add('brother', 'debug', 'Execution de la commande ' . $this->getLogicalId());
     switch ($this->getLogicalId()) {
         case "refresh":
-            $eqLogic->refreshInfo();
+            $eqLogic->setManualRrefresh();
             break;
     }
   }
