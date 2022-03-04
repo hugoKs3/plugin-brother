@@ -4,6 +4,11 @@
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 04/03/2022
+- Correction typographique dans les logs
+- Droits sudo inutiles retirés
+- Rafraichissement manuel dans un cron pour éviter les bloquages de la UI
+
 # Stable - 18/02/2022
 - Correction sur le calcul des dernières impressions
 

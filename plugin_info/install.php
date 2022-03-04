@@ -48,6 +48,11 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
           $eqLogic->setConfiguration('brotherColorType', 1);
       }
     }
+
+    $brother_path = dirname(__FILE__) . '/..';
+    $cmd = 'sudo rm -f ' . $brother_path . '/data/output.json';
+    exec($cmd); 
+
   }
 
 // Fonction exécutée automatiquement après la suppression du plugin
