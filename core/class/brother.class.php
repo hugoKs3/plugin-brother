@@ -217,7 +217,7 @@ class brother extends eqLogic {
     $cron = cron::byClassAndFunction('brother', 'manualRefresh');
     if (!is_object($cron)) {
       $now = new DateTime('NOW');
-      $now->modify('+2 minutes');
+      $now->modify('+1 minute');
       $cronExpr = $now->format('i H j n') . ' *';
       $cron = new cron();
       $cron->setClass('brother');
