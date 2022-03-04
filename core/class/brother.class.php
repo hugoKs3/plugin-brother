@@ -36,10 +36,7 @@ class brother extends eqLogic {
   }
 
   public static function executeManualRefresh() {
-    $eqLogic = self::byId($eqId);
-    if (is_object($eqLogic)) {
-      $eqLogic->refreshInfo();
-    }
+    self::cronHourly();
     log::add(__CLASS__, 'debug', 'Manual refresh executed');
     $cron = cron::byClassAndFunction('brother', 'manualRefresh');
     if (is_object($cron)) {
