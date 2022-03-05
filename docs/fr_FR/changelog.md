@@ -8,6 +8,7 @@
 - Correction typographique dans les logs
 - Droits sudo inutiles retirés
 - Rafraichissement manuel dans un cron pour éviter les bloquages de la UI
+- Compatibilité avec les graphiques en fond de widget
 
 # Stable - 18/02/2022
 - Correction sur le calcul des dernières impressions

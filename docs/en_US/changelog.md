@@ -8,6 +8,7 @@
 - Logs typo fix
 - Useless sudo rights removal
 - Manual refresh in cron to prevent UI lock
+- Compatibility with tile background graphics
 
 # Stable - 18/02/2022
 - Fix on last prints computation

@@ -21,7 +21,9 @@ require_once __DIR__ . '/../../../../core/php/core.inc.php';
 
 class brother extends eqLogic {
 
-    
+  
+  public static $_widgetPossibility = array('custom' => true);
+
 	/* * *************************Attributs****************************** */
 
 	/* * ***********************Methode static*************************** */
