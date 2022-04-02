@@ -201,7 +201,9 @@ class brother extends eqLogic {
       $cmd->setSubType('other');
       $cmd->save();
     }
-    $this->setManualRrefresh();
+    if ($this->getIsEnable() == 1) {
+      $this->setManualRrefresh();
+    }
 	}
     
   public function preInsert() {
